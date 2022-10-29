@@ -7,13 +7,12 @@ from uuid import uuid4
 class BaseModel:
     """Represent the BaseModel of the HBnB project."""
 
-    def __init__ (self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """Initaialize a new BaseModel."""
 
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 r = self.__dict__
@@ -22,11 +21,9 @@ class BaseModel:
                     r["{}".format(key)] = value.isoformat
                 r = self.__dict__
                 r["{}".format(key)] = value
-                
 
     def save(self):
         """update updated_at with the current datetime"""
-
         self.updated_at = datetime.now()
 
     def to_dict(self):
@@ -37,9 +34,8 @@ class BaseModel:
         dict["__class__"] = self.__class__.__name__
         return dict
 
-    def __str__ (self):
+    def __str__(self):
         """return class name and id"""
 
         className = self.__class__.__name__
         return ("[{}] ({}) {}".format(className, self.id, self.__dict__))
-
