@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """Defines unittests for models/base_model.py.
+
 Unittest classes:
     TestBaseModel_instantiation
     TestBaseModel_save
     TestBaseModel_to_dict
-    """
+"""
 import os
 import models
 import unittest
@@ -62,7 +63,7 @@ class TestBaseModel_instantiation(unittest.TestCase):
 
     def test_args_unused(self):
         bm = BaseModel(None)
-        self.assertNotIn(None, bm.__dict__.values
+        self.assertNotIn(None, bm.__dict__.values())
 
     def test_instantiation_with_kwargs(self):
         dt = datetime.today()
@@ -84,21 +85,10 @@ class TestBaseModel_instantiation(unittest.TestCase):
         self.assertEqual(bm.created_at, dt)
         self.assertEqual(bm.updated_at, dt)
 
-    def test_instantiation_with_None_kwargs(self):
-        with self.assertRaises(TypeError):
-            BaseModel(id=None, created_at=None, updated_at=None)
-
-    def test_instantiation_with_args_and_kwargs(self):
-        dt = datetime.today()
-        dt_iso = dt.isoformat()
-        bm = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
-        self.assertEqual(bm.id, "345")
-        self.assertEqual(bm.created_at, dt)
-        self.assertEqual(bm.updated_at, dt)
-
 
 class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
+
     @classmethod
     def setUp(self):
         try:
@@ -146,6 +136,7 @@ class TestBaseModel_save(unittest.TestCase):
         bmid = "BaseModel." + bm.id
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
+
 
 class TestBaseModel_to_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the BaseModel class."""
